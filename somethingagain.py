@@ -42,7 +42,30 @@ def actualizar_datos():
 #Para que actualice cada cierto tiempo.
     app.after(10000, actualizar_datos)
 
+#Una funcion de boton.
+def mostrar_alerta(mensaje):
+    """Recibe el mensaje desde el backend"""
+    messagebox.showinfo("Información", mensaje)
 
+#Los botoncitos
+hora_label = customtkinter.CTkLabel(app, text="", font=("Arial", 24))
+hora_label.pack(pady=10)
+
+fecha_label = customtkinter.CTkLabel(app, text="", font=("Arial", 18))
+fecha_label.pack(pady=5)
+
+temperatura_label = customtkinter.CTkLabel(app, text="", font=("Arial", 16))
+temperatura_label.pack(pady=5)
+
+clima_label = customtkinter.CTkLabel(app, text="", font=("Arial", 16))
+clima_label.pack(pady=5)
+
+viento_label = customtkinter.CTkLabel(app, text="", font=("Arial", 16))
+viento_label.pack(pady=5)
+
+#Las alertas.
+btn = customtkinter.CTkButton(app, text="Mostrar alerta", command=lambda: mostrar_alerta("Consejos"))
+btn.pack(pady=15)
 
 #Ejecutar.
 actualizar_datos()
