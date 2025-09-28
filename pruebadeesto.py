@@ -1,23 +1,25 @@
-#abner esta es tu rama
-#Oh ciedos
-
 import customtkinter
 from tkinter import messagebox
 import requests
 import datetime
-import time
+import flask
 
+# Configuración de la app
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
 
 app = customtkinter.CTk()
-app.title("App del Tiempo y Clima")
-app.geometry("500x450")
+app.title("App Informativa")
+app.geometry("400x300")
 
+# API del clima
+API_KEY = "TU_API_KEY"
 CITY = "Guatemala"
-URL = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}
+URL = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=metric&lang=es"
 
-def Weather():
+
+# Función para obtener el clima
+def obtener_clima():
     response = requests.get(URL)
     data = response.json()
     temp = data["main"]["temp"]
@@ -25,6 +27,8 @@ def Weather():
     viento = data["wind"]["speed"]
     return temp, clima, viento
 
+
+# Función para actualizar los datos en pantalla
 def actualizar_datos():
     ahora = datetime.datetime.now()
     hora_texto = str(ahora.hour) + ":" + str(ahora.minute) + ":" + str(ahora.second)
@@ -32,14 +36,21 @@ def actualizar_datos():
 
     temp, clima, viento = obtener_clima()
 
-    hora_label["text"] = hora_texto
-    fecha_label["text"] = fecha_texto
-    temperatura_label["text"] = "Temperatura: " + str(temp) + " °C"
-    clima_label["text"] = "Clima: " + clima
-    viento_label["text"] = "Viento: " + str(viento) + " m/s"
+    hora_lbl["text"] = hora_texto
+    fecha_lbl["text"] = fecha_texto
+    temperatura_lbl["text"] = "Temperatura: " + str(temp) + " °C"
+    clima_lbl["text"] = "Clima: " + clima
+    viento_lbl["text"] = "Viento: " + str(viento) + " m/s"
 
-app.after(10000, actualizar_datos)
+    app.after(10000, actualizar_datos)  # Actualiza cada 10 segundos
 
+
+# Función para el botón (el mensaje viene del backend)
+def mostrar_alerta(mensaje):
+    messagebox.showinfo("Información", mensaje)
+
+
+# Widgets
 hora_lbl = customtkinter.CTkLabel(app, text="", font=("Arial", 24))
 hora_lbl.pack(pady=5)
 
@@ -58,9 +69,6 @@ viento_lbl.pack(pady=5)
 btn = customtkinter.CTkButton(app, text="Mostrar alerta", command=lambda: mostrar_alerta("Este mensaje viene del backend"))
 btn.pack(pady=10)
 
-
+# Ejecutar
 actualizar_datos()
 app.mainloop()
-
-
-#4 etiquetas y una caja, señal de alerta
