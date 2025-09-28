@@ -39,6 +39,9 @@ def actualizar_datos():
     clima_label.configure(text=f" {clima}")
     viento_label.configure(text=f" {viento} m/s")
 
+#Para que actualice cada cierto tiempo.
+    app.after(10000, actualizar_datos)
+
 
 
 #Ejecutar.
