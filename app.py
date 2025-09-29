@@ -15,7 +15,7 @@ app.title("App del Tiempo y Clima")
 app.geometry("500x450")
 
 CITY = "Guatemala"
-URL = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}
+URL = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}"
 
 def Weather():
     response = requests.get(URL)
