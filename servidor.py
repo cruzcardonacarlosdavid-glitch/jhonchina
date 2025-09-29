@@ -14,7 +14,7 @@ month = data2.json()["month"]
 day = data2.json()["day"]
 
 #api de factos
-def factoss():
+def factoss(facto):
     url3 = "https://catfact.ninja/fact"
     data3 = requests.get(url3).json()
     facto = data3["fact"]
